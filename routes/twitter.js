@@ -9,12 +9,25 @@ var client = new Twitter({
   access_token_secret: 'L4UX1MQ099qZBZ2qUWrK5JqwjD6GLTw37Kk2V9ElHE7hX'
 });
 
+router.get('/:nmusuario/', function(req, res, next) {
+
+  // https://dev.twitter.com/rest/reference/get/statuses/user_timeline
+  client.get('search/tweets', { q: 'from:'+req.params.nmusuario, count: 5 }, function(error, tweets, response) {
+    if (!error) {
+      res.status(200).send({tweets: tweets.statuses[0] });
+    }
+    else {
+      res.status(500).json({ error: error });
+    }
+  });
+});
+
 router.get('/:nmusuario/:hashtag', function(req, res, next) {
 
   // https://dev.twitter.com/rest/reference/get/statuses/user_timeline
   client.get('search/tweets', { q: 'from:'+req.params.nmusuario+' #'+req.params.hashtag, count: 5 }, function(error, tweets, response) {
     if (!error) {
-      res.status(200).send({tweets: tweets });
+      res.status(200).send({tweets: tweets.statuses[0] });
     }
     else {
       res.status(500).json({ error: error });
