@@ -14,7 +14,7 @@ router.get('/:nmusuario/', function(req, res, next) {
   // https://dev.twitter.com/rest/reference/get/statuses/user_timeline
   client.get('search/tweets', { q: 'from:'+req.params.nmusuario, count: 5 }, function(error, tweets, response) {
     if (!error) {
-      res.status(200).send({tweets: tweets.statuses[0] });
+      res.status(200).send({tweets: tweets.statuses[0].text });
     }
     else {
       res.status(500).json({ error: error });
