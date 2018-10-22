@@ -16,7 +16,7 @@ router.get('/:nmusuario', function(req, res, next) {
   // https://dev.twitter.com/rest/reference/get/statuses/user_timeline
   client.get('search/tweets', { q: 'from:'+req.params.nmusuario, count: 1 }, function(error, tweets, response) {
     if (!error) {
-      let hashtag = tweets.statuses[0].entities.hashtags.find(tag => tag.text === "fecharporta" || tag.text === "abrirporta");
+      let hashtag = tweets.statuses[0].entities.hashtags.find(tag => tag.text === "fechar" || tag.text === "abrir");
 
       res.status(200).send({tweets: hashtag });
     }
