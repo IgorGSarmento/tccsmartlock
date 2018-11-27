@@ -3,24 +3,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var twitterRouter = require('./routes/twitter');
 
 var app = express();
-/*
-var dbName = 'api-twitter';
-var connectionString = 'mongodb://localhost:27017/'+dbName;
-*/
-
-var dbName = 'api-twitter';
-var dbuser = 'root';
-var dbpassword = 'qwer1234';
-var connectionString = 'mongodb://'+ dbuser +':'+ dbpassword +'@ds029640.mlab.com:29640/'+dbName;
-
-
-mongoose.connect(connectionString);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
