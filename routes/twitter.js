@@ -14,11 +14,13 @@ router.get('/:nmusuario', function(req, res, next) {
   // https://dev.twitter.com/rest/reference/get/statuses/user_timeline
   client.get('search/tweets', { q: 'from:'+req.params.nmusuario, count: 1 }, function(error, tweets, response) {
     if (!error) {
-      let hashtag = tweets.statuses[0].entities.hashtags.find(tag => tag.text === "fechar" || tag.text === "abrir");
-
-      res.status(200).send({tweets: hashtag });
-    }
-    else {
+      if(tweets.statuses[0] != undefined){
+        let hashtag = tweets.statuses[0].entities.hashtags.find(tag => tag.text === "fechar" || tag.text === "abrir");
+        res.status(200).send({tweets: hashtag});
+      } else{
+        res.status(200).send({tweets: "Usuário sem a hashtag #abrir ou #fechar. Suba a hastag no Twitter."});
+      }
+    } else {
       res.status(500).json({ error: error });
     }
   });
@@ -28,11 +30,13 @@ router.get('/:nmusuario/:hashtag', function(req, res, next) {
   // https://dev.twitter.com/rest/reference/get/statuses/user_timeline
   client.get('search/tweets', { q: 'from:'+req.params.nmusuario+' #'+req.params.hashtag, count: 1 }, function(error, tweets, response) {
     if (!error) {
-      let hashtag = tweets.statuses[0].entities.hashtags.find(tag => tag.text === req.params.hashtag);
-
-      res.status(200).send({tweets: hashtag });
-    }
-    else {
+      if(tweets.statuses[0] != undefined){
+        let hashtag = tweets.statuses[0].entities.hashtags.find(tag => tag.text === req.params.hashtag);
+        res.status(200).send({tweets: hashtag});
+      } else{
+        res.status(200).send({tweets: "Usuário sem a hashtag #abrir ou #fechar. Suba a hastag no Twitter."});
+      }
+    } else {
       res.status(500).json({ error: error });
     }
   });
